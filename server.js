@@ -8,9 +8,11 @@ app.use(express.static('public'));
 var server = http.Server(app);
 var io = socket_io(server);
 
+var totalUsers = 0;
+
     io.on('connection', function (socket) {
-        
-        socket.broadcast.emit('message', 'User has connected');
+        totalUsers++;
+        socket.broadcast.emit('message', 'User has connected; totalUsers:  ' +totalUsers+'');
         console.log(socket.id);
         
         socket.on('message', function(message) {
@@ -19,7 +21,8 @@ var io = socket_io(server);
         });
         
         socket.on('disconnect', function(){
-            socket.broadcast.emit('message', 'User has disconnected');
+            totalUsers--;
+            socket.broadcast.emit('message', 'User has disconnected; totalUsers:' +totalUsers+'');
         });
         
         

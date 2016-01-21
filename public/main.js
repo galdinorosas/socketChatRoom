@@ -8,9 +8,7 @@ $(document).ready(function() {
         messages.append('<div>' + message + '</div>');
     };
     
-    var totalUsers = function(usersOnline){
-        messages.append('<div>' + usersOnline + '</div>')
-    };
+
     
 
 
@@ -27,10 +25,7 @@ $(document).ready(function() {
         input.val('');
     });
     
-    button.on('click', function(){
-        
-        socket.disconnected();
-    });
+
     
 
     
