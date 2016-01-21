@@ -11,10 +11,15 @@ var io = socket_io(server);
     io.on('connection', function (socket) {
         
         socket.broadcast.emit('message', 'User has connected');
+        console.log(socket.id);
         
         socket.on('message', function(message) {
             console.log('Received message:', message);
             socket.broadcast.emit('message', message);
+        });
+        
+        socket.on('disconnect', function(){
+            socket.broadcast.emit('message', 'User has disconnected');
         });
         
         
