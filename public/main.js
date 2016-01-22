@@ -1,14 +1,23 @@
 $(document).ready(function() {
+
+    var userName = prompt('Please enter your name here:');
+    
+    
     var socket = io();
     var input = $('input');
     var messages = $('#messages');
     var button = $('button');
 
-    var addMessage = function(message) {
-        messages.append('<div>' + message + '</div>');
+
+    var addMessage = function(clientObject) {
+        var tempName = JSON.stringify(clientObject.name);
+        var tempMessage = JSON.stringify(clientObject.message);
+        console.log(tempName);
+        console.log(tempMessage);
+        messages.append('<div>' + tempName +': '+tempMessage+'</div>');
     };
     
-
+    
     
 
 
@@ -16,12 +25,13 @@ $(document).ready(function() {
         if (event.keyCode != 13) {
             return;
         }
-
-        console.log(socket);
+        var name =userName;
+        console.log(name);
 
         var message = input.val();
         addMessage(message);
-        socket.emit('message', message);
+        var clientObject = {name:userName,message:message};
+        socket.emit('clientToServer', clientObject);
         input.val('');
     });
     
@@ -29,7 +39,7 @@ $(document).ready(function() {
     
 
     
-    socket.on('message', addMessage);
+    socket.on('serverToClient', addMessage);
 
 
 });

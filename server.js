@@ -12,17 +12,17 @@ var totalUsers = 0;
 
     io.on('connection', function (socket) {
         totalUsers++;
-        socket.broadcast.emit('message', 'User has connected; totalUsers:  ' +totalUsers+'');
+        socket.broadcast.emit('serverToClient', 'User has connected; totalUsers:  ' +totalUsers+'');
         console.log(socket.id);
         
-        socket.on('message', function(message) {
-            console.log('Received message:', message);
-            socket.broadcast.emit('message', message);
+        socket.on('clientToServer', function(clientObject) {
+            console.log('Received message and name:', clientObject);
+            socket.broadcast.emit('serverToClient',clientObject);
         });
         
         socket.on('disconnect', function(){
             totalUsers--;
-            socket.broadcast.emit('message', 'User has disconnected; totalUsers:' +totalUsers+'');
+            socket.broadcast.emit('serverToClient', 'User has disconnected; totalUsers:' +totalUsers+'');
         });
         
         
