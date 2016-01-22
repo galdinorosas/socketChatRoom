@@ -10,11 +10,15 @@ $(document).ready(function() {
 
 
     var addMessage = function(clientObject) {
-        var tempName = JSON.stringify(clientObject.name);
-        var tempMessage = JSON.stringify(clientObject.message);
-        console.log(tempName);
-        console.log(tempMessage);
-        messages.append('<div>' + tempName +': '+tempMessage+'</div>');
+        if(clientObject.hasOwnProperty('enter')){
+            messages.append('<div>' + clientObject.enter+'</div>');
+        }
+        else{
+            messages.append('<div>' + clientObject.name +': '+clientObject.message+'</div>');
+            
+        }
+
+        
     };
     
     
@@ -29,8 +33,9 @@ $(document).ready(function() {
         console.log(name);
 
         var message = input.val();
-        addMessage(message);
+        console.log(message);
         var clientObject = {name:userName,message:message};
+        addMessage(clientObject);
         socket.emit('clientToServer', clientObject);
         input.val('');
     });

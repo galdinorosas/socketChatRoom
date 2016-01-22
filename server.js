@@ -12,7 +12,7 @@ var totalUsers = 0;
 
     io.on('connection', function (socket) {
         totalUsers++;
-        socket.broadcast.emit('serverToClient', 'User has connected; totalUsers:  ' +totalUsers+'');
+        socket.broadcast.emit('serverToClient', {'enter':'User has connected; totalUsers:  ' +totalUsers+''});
         console.log(socket.id);
         
         socket.on('clientToServer', function(clientObject) {
