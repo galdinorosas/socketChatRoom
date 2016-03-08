@@ -1,12 +1,9 @@
 $(document).ready(function() {
 
     var userName = prompt('Please enter your name here:');
-    
-    
     var socket = io();
     var input = $('input');
     var messages = $('#messages');
-    var button = $('button');
 
 
     var addMessage = function(clientObject) {
@@ -15,16 +12,10 @@ $(document).ready(function() {
         }
         else{
             messages.append('<div>' + clientObject.name +': '+clientObject.message+'</div>');
-            
         }
 
-        
     };
     
-    
-    
-
-
     input.on('keydown', function(event) {
         if (event.keyCode != 13) {
             return;
@@ -40,11 +31,6 @@ $(document).ready(function() {
         input.val('');
     });
     
-
-    
-
-    
     socket.on('serverToClient', addMessage);
-
 
 });

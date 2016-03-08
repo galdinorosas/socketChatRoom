@@ -25,8 +25,6 @@ var totalUsers = 0;
             socket.broadcast.emit('serverToClient', 'User has disconnected; totalUsers:' +totalUsers+'');
         });
         
-        
-
     });
     
 
