@@ -7,30 +7,26 @@ $(document).ready(function() {
 
 
     var addMessage = function(clientObject) {
-        if(clientObject.hasOwnProperty('enter')){
-            messages.append('<div>' + clientObject.enter+'</div>');
-        }
-        else{
-            messages.append('<div>' + clientObject.name +': '+clientObject.message+'</div>');
+        if (clientObject.hasOwnProperty('enter')) {
+            messages.append('<div>' + clientObject.enter + '</div>');
+        } else {
+            messages.append('<div>' + clientObject.name + ': ' + clientObject.message + '</div>');
         }
 
     };
-    
+
     input.on('keydown', function(event) {
         if (event.keyCode != 13) {
             return;
         }
-        var name =userName;
-        console.log(name);
-
+        var name = userName;
         var message = input.val();
-        console.log(message);
-        var clientObject = {name:userName,message:message};
+        var clientObject = { name: userName, message: message };
         addMessage(clientObject);
         socket.emit('clientToServer', clientObject);
         input.val('');
     });
-    
+
     socket.on('serverToClient', addMessage);
 
 });
