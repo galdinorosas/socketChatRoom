@@ -22,11 +22,11 @@ io.on('connection', function(socket) {
 
     socket.on('disconnect', function() {
         totalUsers--;
-        socket.broadcast.emit('serverToClient', 'User has disconnected; totalUsers:' + totalUsers + '');
+        socket.broadcast.emit('serverToClient', {enter:'User has disconnected; totalUsers:' + totalUsers + ''});
     });
 
 });
 
-
-
-server.listen(8080);
+server.listen(8080, function(){
+    console.log('Please navigate to http://localhost:8080');
+});
